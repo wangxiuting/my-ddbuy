@@ -5,12 +5,14 @@
       <router-link to="/map"></router-link>
       <van-row>
         <van-col span="8" class="location" @click="goLocation">
-          <van-icon name="location-o" />
-          请选择位置</van-col
-        >
+          <van-icon name="location-o" class="vant-icon" />
+          <span>请选择位置</span>
+        </van-col>
+
         <van-col span="16" class="goodName">
-          <van-icon name="search" />请输入商品名称</van-col
-        >
+          <van-icon name="search" class="vant-icon" />
+          <span>请输入商品名称</span>
+        </van-col>
       </van-row>
     </div>
   </div>
@@ -47,6 +49,11 @@ export default {
 <style lang="less" scoped>
 #homeHeader {
   padding: 9px 9px;
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
 }
 .location {
   border-radius: 17px;
@@ -54,6 +61,12 @@ export default {
   color: #fff;
   padding: 4px;
   font-size: 14px;
+}
+span {
+  vertical-align: middle;
+}
+.vant-icon {
+  vertical-align: middle;
 }
 .goodName {
   border-radius: 17px;

@@ -1,6 +1,7 @@
-<!--  -->
 <template>
-  <div class="">mine</div>
+  <div id="mine">
+    <van-nav-bar title="我的" />
+  </div>
 </template>
 
 <script>
@@ -26,4 +27,14 @@ export default {
   mounted() {}
 };
 </script>
-<style lang="" scoped></style>
+<style lang="less" scoped>
+.mine {
+  width: 100%;
+  background-color: red;
+}
+.van-nav-bar {
+  color: #fff;
+  background-color: rgb(90, 191, 122);
+  height: 6.25rem;
+}
+</style>

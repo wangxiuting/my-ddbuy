@@ -1,12 +1,12 @@
 <!--  -->
 <template>
   <div class="nav">
-    <van-grid square>
+    <van-grid :column-num="5" :border="false">
       <van-grid-item
-        v-for="value in 8"
-        :key="value"
-        icon="photo-o"
-        text="文字"
+        v-for="(item, index) in nav_list"
+        :key="index"
+        :icon="item.icon_url"
+        :text="item.name"
       />
     </van-grid>
   </div>
@@ -17,6 +17,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 
 export default {
+  props: { nav_list: Array },
   //import引入的组件需要注入到对象中才能使用
   components: {},
   data() {
@@ -35,4 +36,4 @@ export default {
   mounted() {}
 };
 </script>
-<style lang="" scoped></style>
+<style lang="less" scoped></style>

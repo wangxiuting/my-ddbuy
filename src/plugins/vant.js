@@ -19,3 +19,26 @@ Vue.use(SwipeItem);
 import { Grid, GridItem } from "vant";
 Vue.use(Grid);
 Vue.use(GridItem);
+
+import { CountDown } from "vant";
+Vue.use(CountDown);
+
+import { Tab, Tabs } from "vant";
+Vue.use(Tab);
+Vue.use(Tabs);
+
+import { Form } from "vant";
+Vue.use(Form);
+
+import { Field } from "vant";
+Vue.use(Field);
+
+import { Button } from "vant";
+Vue.use(Button);
+
+import { Cell, CellGroup } from "vant";
+Vue.use(Cell);
+Vue.use(CellGroup);
+
+import { Dialog } from "vant";
+Dialog({ message: "提示" });

@@ -1,11 +1,14 @@
 <!--  -->
 <template>
-  <div id="swiper">
-    <van-swipe class="my-swipe" :autoplay="9000" indicator-color="white">
-      <van-swipe-item v-for="(swaiper, index) in swaiperList" :key="index">
-        <img :src="swaiper.icon_url" alt="" />
-      </van-swipe-item>
-    </van-swipe>
+  <div class="myVip">
+    <div class="leftBox">
+        <van-icon name="like-o" class="van-icon"/>
+        <span class="joinVip">加入会员</span>
+        <span class="joinVip">每年预计节省806元</span class="joinVip">
+    </div>
+    <div class="rightBox">
+        <span>5折开卡></span>
+    </div>
   </div>
 </template>
 
@@ -15,9 +18,6 @@
 
 export default {
   //import引入的组件需要注入到对象中才能使用
-  props: {
-    swaiperList: Array
-  },
   components: {},
   data() {
     //这里存放数据
@@ -36,23 +36,30 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#swiper {
-  height: 200px;
-  border: 1px solid red;
-  border-radius: 10px;
+.myVip {
+  width: 95%;
+  margin: 0 auto;
+  background-color: rgb(85, 192, 119);
+  border-radius: .3125rem;
+  padding: .5625rem .3125rem;
   overflow: hidden;
-  margin: 50px 9px 0 9px;
 }
-#swiper img {
-  height: 100%;
+.joinVip{
+    color: #fff;
+    vertical-align: middle;
 }
-
-.my-swipe {
-  overflow: hidden;
-  height: inherit !important;
+.leftBox{
+   float: left;
+   font-weight: 700;
+    font-size: .875rem;
 }
-.van-swipe-item {
-  width: inherit !important;
-  height: inherit !important;
+.rightBox{
+    font-weight: 700;
+    font-size: .875rem;
+    float:right;
+    color: #fff;
+}
+.van-icon{
+    vertical-align:middle!important;
 }
 </style>

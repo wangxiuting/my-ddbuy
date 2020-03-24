@@ -6,6 +6,10 @@
       <swiper :swaiperList="swaiperList" />
       <tip :home_ad="home_ad" />
     </div>
+    <leader :nav_list="nav_list" />
+    <myVip />
+    <flashSale :flashFoodList="flashFoodList" />
+    <specialZone :specialZone="specialZone" />
   </div>
 </template>
 
@@ -16,6 +20,10 @@
 import homeHeader from "./components/header";
 import swiper from "./components/swiper";
 import tip from "./components/tip";
+import leader from "./components/nav";
+import myVip from "./components/myVip";
+import flashSale from "./components/flashSale";
+import specialZone from "./components/specialZone";
 import { getHomeData } from "../../api/api.js";
 
 export default {
@@ -23,7 +31,11 @@ export default {
   components: {
     homeHeader,
     swiper,
-    tip
+    tip,
+    leader,
+    myVip,
+    flashSale,
+    specialZone
   },
   data() {
     //这里存放数据
@@ -31,7 +43,13 @@ export default {
       // 轮播图数据
       swaiperList: [],
       // 首页广告图片
-      home_ad: ""
+      home_ad: "",
+      // 10个导航
+      nav_list: [],
+      // 限时抢购
+      flashFoodList: [],
+      // 特殊专区的值
+      specialZone: {}
     };
   },
   //监听属性 类似于data概念
@@ -45,6 +63,9 @@ export default {
       console.log(res);
       this.swaiperList = res.data.list[0].icon_list;
       this.home_ad = res.data.home_ad.image_url;
+      this.nav_list = res.data.list[2].icon_list;
+      this.flashFoodList = res.data.list[3].product_list;
+      this.specialZone = res.data.special_zone;
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -59,6 +80,7 @@ export default {
 .home {
 }
 .head {
+  display: inline-block;
   width: 100%;
   background-image: url("http://518taole.7-orange.cn/backImage.png");
 }

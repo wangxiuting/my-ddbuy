@@ -14,6 +14,12 @@ import map from "../pages/home/components/map.vue";
 import swiper from "../pages/home/components/swiper.vue";
 import tip from "../pages/home/components/tip.vue";
 import nav from "../pages/home/components/tip.vue";
+import myVip from "../pages/home/components/myVip.vue";
+import flashSale from "../pages/home/components/flashSale.vue";
+import flashFood from "../pages/home/components/flashSale.vue";
+import specialZone from "../pages/home/components/specialZone.vue";
+// 登录模块
+import login from "../pages/login/login.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -71,8 +77,28 @@ export default new Router({
           path: "nav",
           name: "nav",
           component: nav
+        },
+        {
+          path: "myVip",
+          name: "myVip",
+          component: myVip
+        },
+        {
+          path: "flashSale",
+          name: "flashSale",
+          component: flashSale
+        },
+        {
+          path: "specialZone",
+          name: "specialZone",
+          component: specialZone
         }
       ]
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: login
     }
   ]
 });

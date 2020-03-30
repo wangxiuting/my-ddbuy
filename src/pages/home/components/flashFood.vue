@@ -3,17 +3,14 @@
   <div class="flashFood">
     <div class="flashSwiper">
       <ul class="ulSwiper">
-        <li v-for="(product, index) in flashFoodList" class="liSwiper">
-          <img v-lazy="product.small_image" alt="" class="productImg" />
+        <li v-for="(product, index) in flashFoodList" :key="index" class="liSwiper">
+          <img v-lazy="product.small_image" alt class="productImg" />
           <span class="prodcutName">{{ product.name }}</span>
           <div class="price">
             <p class="nowPrice">￥{{ product.price }}</p>
             <p class="oldPrice">￥{{ product.origin_price }}</p>
             <div class="buyCar">
-              <svg-icon
-                iconClass="car"
-                style="width:1.3rem;height:1.3rem"
-              ></svg-icon>
+              <svg-icon iconClass="car" style="width:1.3rem;height:1.3rem"></svg-icon>
             </div>
           </div>
         </li>
@@ -25,7 +22,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import Bscoll from "better-scroll";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},

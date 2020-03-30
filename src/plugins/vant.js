@@ -40,5 +40,3 @@ import { Cell, CellGroup } from "vant";
 Vue.use(Cell);
 Vue.use(CellGroup);
 
-import { Dialog } from "vant";
-Dialog({ message: "提示" });

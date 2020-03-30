@@ -6,7 +6,11 @@ import router from "./router";
 import lazyLoad from "vue-lazyload";
 import store from "./store/store";
 import "./icons"; // icon
+import waterFall from "vue-waterfall2";
+import less from "less";
+Vue.use(less);
 Vue.use(lazyLoad);
+Vue.use(waterFall);
 Vue.config.productionTip = false;
 
 // 全局引入rem

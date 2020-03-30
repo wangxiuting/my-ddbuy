@@ -16,3 +16,10 @@ export const getPhoneCaptcha = phoneNumber =>
 // 手机验证码登录 phone captcha
 export const phoneCaptchaLogin = (phoneNumber, captcha) =>
   ajax(BASE_URL + "login_code", { phoneNumber, captcha }, "POST");
+
+/* 吃什么模块 */
+// 今日菜单的所有菜单分类
+export const getTodayMenu = () => ajax(BASE_URL + "recipe/allScene");
+// 瀑布流数据
+export const getAllMenuDetail = params =>
+  ajax(BASE_URL + "recipe/menulist" + params);

@@ -104,6 +104,7 @@ export default {
     // 同步用户信息
     // 登录
     async onSubmit(values) {
+      console.log('submits')
       console.log(values);
       // 首先判断手机号是否正确
       // 其次是验证码是否是一致的
@@ -131,11 +132,13 @@ export default {
     },
     // 注册
     signUp() {
+      console.log('signup')
       console.log("signUp");
     },
 
     // 发送验证码
     async sendVerifyCode() {
+      console.log('sendVerifyCode')
       this.countDown = 60;
       this.timeInterval = setInterval(() => {
         this.countDown--;

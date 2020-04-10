@@ -23,3 +23,9 @@ export const getTodayMenu = () => ajax(BASE_URL + "recipe/allScene");
 // 瀑布流数据
 export const getAllMenuDetail = params =>
   ajax(BASE_URL + "recipe/menulist" + params);
+
+/* 分类模块 */
+export const getCatData = () => ajax(BASE_URL + "homeApi/categories");
+//获取右边数据 默认是前十条
+export const getCateDataRight = params =>
+  ajax(BASE_URL + "homeApi/categoriesdetail" + params);

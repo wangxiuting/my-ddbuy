@@ -1,15 +1,18 @@
 <!--  -->
 <template>
   <div class="home">
-    <div class="head">
-      <homeHeader />
-      <swiper :swaiperList="swaiperList" />
-      <tip :home_ad="home_ad" />
+    <skelkon v-show="isShowLoading"/>
+    <div v-if="!isShowLoading">
+      <div class="head">
+        <homeHeader/>
+        <swiper :swaiperList="swaiperList"/>
+        <tip :home_ad="home_ad"/>
+      </div>
+      <leader :nav_list="nav_list"/>
+      <myVip/>
+      <flashSale :flashFoodList="flashFoodList"/>
+      <specialZone :specialZone="specialZone"/>
     </div>
-    <leader :nav_list="nav_list" />
-    <myVip />
-    <flashSale :flashFoodList="flashFoodList" />
-    <specialZone :specialZone="specialZone" />
   </div>
 </template>
 
@@ -24,6 +27,8 @@ import leader from "./components/nav";
 import myVip from "./components/myVip";
 import flashSale from "./components/flashSale";
 import specialZone from "./components/specialZone";
+// 引入骨架屏
+import skelkon from "./components/skeleton/index";
 import { getHomeData } from "../../api/api.js";
 
 export default {
@@ -35,7 +40,8 @@ export default {
     leader,
     myVip,
     flashSale,
-    specialZone
+    specialZone,
+    skelkon,
   },
   data() {
     //这里存放数据
@@ -49,7 +55,8 @@ export default {
       // 限时抢购
       flashFoodList: [],
       // 特殊专区的值
-      specialZone: {}
+      specialZone: {},
+      isShowLoading: true,
     };
   },
   //监听属性 类似于data概念
@@ -66,14 +73,16 @@ export default {
       this.nav_list = res.data.list[2].icon_list;
       this.flashFoodList = res.data.list[3].product_list;
       this.specialZone = res.data.special_zone;
-    }
+
+      this.isShowLoading = false;
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this._initData();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

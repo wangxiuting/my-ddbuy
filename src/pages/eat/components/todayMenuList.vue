@@ -3,13 +3,14 @@
   <div id="todayMenu">
     <div class="todayMenuWripper">
       <div class="menuList">
-        <ul ref="menuUl" style="width: max-content;padding-left: 1.2rem;">
+        <ul ref="menuUl" style="width: max-content;">
           <li
             ref="menuLi"
-            class="eachMenu"
-            v-for="item in menuList"
+            v-for="(item , index) in menuList"
+            class="menuItem"
+            :class="{selected : greenBorder == index}"
             :key="item.id"
-            @click="eachLi"
+            @click="eachLi(index)"
           >{{item.name}}</li>
         </ul>
       </div>
@@ -49,7 +50,8 @@ export default {
     return {
       menuList: [],
       // 显示隐藏分类菜单
-      isShowCatList: false
+      isShowCatList: false,
+      greenBorder: 0
     };
   },
   //监听属性 类似于data概念
@@ -92,7 +94,10 @@ export default {
     },
 
     // 点击li标签
-    eachLi() {},
+    eachLi(index) {
+      console.log(index);
+      this.greenBorder = index;
+    },
 
     // 点击全部按钮
     changeCatListShow() {
@@ -109,8 +114,11 @@ export default {
 };
 </script>
 <style lang='less' scoped>
+.selected {
+  border: 1px solid #3cb963;
+}
 #todayMenu {
-  padding-top:6rem;
+  padding-top: 6rem;
   width: 100%;
 }
 .todayMenuWripper {
@@ -125,6 +133,19 @@ export default {
   width: 80%;
   height: 1.8rem;
   overflow: hidden;
+  .menuItem {
+    margin-right: 0.5rem;
+    display: inline-block;
+    font-size: 0.73rem;
+    padding: 0.4rem;
+    border: 1px solid #dedede;
+    border-radius: 0.6rem;
+    padding: 0.3rem;
+  }
+  .selected {
+    color: #3cb963;
+    border: 1px solid #3cb963;
+  }
 }
 .menuAll {
   position: absolute;

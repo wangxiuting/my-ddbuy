@@ -40,3 +40,6 @@ import { Cell, CellGroup } from "vant";
 Vue.use(Cell);
 Vue.use(CellGroup);
 
+/* 分割线 */
+import { Divider } from "vant";
+Vue.use(Divider);

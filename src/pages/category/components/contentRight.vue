@@ -29,7 +29,7 @@
                   <p class="proContent">{{item.spec}}</p>
                   <p class="currentPrice">{{item.price }}</p>
                   <p class="oldPrice">{{item.origin_price}}</p>
-                  <div class="addtoCart">
+                  <div class="addtoCart" @click="addToCart(item)">
                     <svg-icon iconClass="car" style="width:1.5rem ; height:1.5rem"></svg-icon>
                   </div>
                 </div>
@@ -46,6 +46,7 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import BScroll from "better-scroll";
+import { mapMutations, mapState } from "vuex";
 export default {
   //import引入的组件需要注入到对象中才能使用
   props: {
@@ -90,7 +91,6 @@ export default {
     },
     // 选中右侧title
     currenLi(index) {
-      console.log(1);
       this.currentLiRight = index;
       // 点击title切换对应菜品
       this.flag = true;
@@ -102,6 +102,11 @@ export default {
         this.flag = false;
       }, 100);
     },
+
+    // 添加至购物车
+    ...mapMutations({
+      addToCart: "ADD_TO_CART",
+    }),
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},

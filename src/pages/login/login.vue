@@ -32,20 +32,14 @@
                 size="small"
                 @click="sendVerifyCode"
                 v-if="!countDown"
-                >发送验证码
-              </van-button>
-              <van-button type="primary" size="small" v-else disabled
-                >已发送{{ countDown }} s
-              </van-button>
+              >发送验证码</van-button>
+              <van-button type="primary" size="small" v-else disabled>已发送{{ countDown }} s</van-button>
               <div style="margin: 16px;">
-                <van-button round block type="info" native-type="submit">
-                  提交
-                </van-button>
+                <van-button round block type="info" native-type="submit">提交</van-button>
               </div>
             </van-form>
           </van-cell-group>
         </van-tab>
-
         <!--注册 -->
         <van-cell-group v-show="!ismsgLogin">
           <van-tab title="注册">
@@ -66,9 +60,7 @@
                 :rules="[{ required: true, message: '请输入正确的密码哟' }]"
               />
               <div style="margin: 16px;">
-                <van-button round block type="info" native-type="submit">
-                  注册
-                </van-button>
+                <van-button round block type="info" native-type="submit">注册</van-button>
               </div>
             </van-form>
           </van-tab>
@@ -83,6 +75,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { Dialog } from "vant";
 import { getPhoneCaptcha, phoneCaptchaLogin } from "../../api/api.js";
+import { mapActions } from "vuex";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
@@ -97,21 +90,21 @@ export default {
       // 保存的手机短信验证码
       saveCaptcha: "",
       // 是否短信登录
-      ismsgLogin: true
+      ismsgLogin: true,
     };
   },
   methods: {
     // 同步用户信息
+    ...mapActions(["saveUserInfo"]),
+    // 同步用户信息
     // 登录
     async onSubmit(values) {
-      console.log('submits')
-      console.log(values);
       // 首先判断手机号是否正确
       // 其次是验证码是否是一致的
       if (!this.phoneNumberRight) {
         Dialog.alert({
           title: "错误",
-          message: "手机号码不对"
+          message: "手机号码不对",
         }).then(() => {
           // on close
         });
@@ -119,7 +112,7 @@ export default {
       } else if (this.captcha != this.saveCaptcha) {
         Dialog.alert({
           title: "错误",
-          message: "验证码不对"
+          message: "验证码不对",
         }).then(() => {
           // on close
         });
@@ -128,17 +121,18 @@ export default {
       // 请求后台登录接口
       let ref = await phoneCaptchaLogin(this.phoneNumber, this.captcha);
       // 将信息保存到熬本地和vuex
-      this.$store.dispatch("saveUserInfo", ref.data);
+      this.saveUserInfo(ref.data);
+      this.$router.back();
     },
     // 注册
     signUp() {
-      console.log('signup')
+      console.log("signup");
       console.log("signUp");
     },
 
     // 发送验证码
     async sendVerifyCode() {
-      console.log('sendVerifyCode')
+      console.log("sendVerifyCode");
       this.countDown = 60;
       this.timeInterval = setInterval(() => {
         this.countDown--;
@@ -154,12 +148,12 @@ export default {
         // 弹框显示验证码内容
         Dialog.alert({
           title: "这是您的验证码",
-          message: "验证码" + this.saveCaptcha
+          message: "验证码" + this.saveCaptcha,
         }).then(() => {
           // on close
         });
       }
-    }
+    },
   },
   //监听属性 类似于data概念
   computed: {
@@ -171,7 +165,7 @@ export default {
       } else {
         return true;
       }
-    }
+    },
   },
   //监控data中的数据变化
   watch: {},
@@ -179,7 +173,7 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

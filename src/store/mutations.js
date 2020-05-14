@@ -2,7 +2,9 @@ import {
   USER_INFO,
   ADD_GOODS,
   ADD_TO_CART,
-  REDUCE_GOODS
+  REDUCE_GOODS,
+  SELECT_GOODS,
+  DELETE_GOODS
 } from "./mutation-type";
 import { setLocalStore } from "../../config/globalSave";
 import Vue from "vue";
@@ -72,11 +74,8 @@ export default {
   [REDUCE_GOODS](state, { goodsId }) {
     // 先找到该商品
     // 通过id呀
-    console.log(goodsId);
     let shopCart = state.shopCart;
-    console.log(shopCart);
     let good = shopCart[goodsId];
-    console.log(good);
     // 找到该商品
     if (good) {
       if (good["num"] > 0) {
@@ -90,5 +89,36 @@ export default {
       // 再同步本地数据
       setLocalStore("shopcart", state.shopCart);
     }
+  },
+
+  // 选择商品
+  [SELECT_GOODS](state , {goodsId}){
+    // 先获取shopcat数据
+    //2.通过id找到他
+    let shopCart = state.shopCart;
+    let good = shopCart[goodsId];
+    if(good){
+      if(good.hasOwnProperty('checked')){
+        good.checked = !good.checked
+      }else{
+        // 使用Vue.use 全局设置checked属性
+        Vue.use(good , 'checked' , true)
+      }
+    }
+  },
+
+  // 右上角点击删除
+  [DELETE_GOODS](state){
+    let shopCart = state.shopCart;
+    // 遍历有checked的goods
+    Object.values(shopCart).forEach((goods , index) =>{
+      if(goods.checked){
+        delete shopCart[goods.id]
+      }
+    })
+    // 更新state数据
+    state.shopCart = {...shopCart}
+    // 更新本地数据
+    setLocalStore('shopCart' , state.shopCart)
   }
 };

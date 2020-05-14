@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="cart">
-    <div class="cartHead">购物车</div>
+    <header class="cartHead"><span style="font-weight:700">购物车</span> <span class="delGood" @click="delChooseGoods">删除</span></header>
     <div class="cartWrapper">
       <!-- 空的购物车 -->
       <div class="emptyCart" v-show="isShowEmptyCart">
@@ -13,29 +13,32 @@
         >去看看吧</van-button>
       </div>
       <div class="contentWrapper" v-show="!isShowEmptyCart">
-        <div class="contentWrapperList" v-for="(goods,index) in shopCart" :key="goods.id">
+        <div class="contentWrapperList" v-for="(goods) in shopCart" :key="goods.id">
           <section>
             <div class="shopCartListCon">
               <div class="left">
-                <a href="javaScript:;" class="cartCheckBox"></a>
+                <input type="checkbox" class="cartCheckBox" :checked="goods.checked" @click="setChecked(goods.id)">
               </div>
               <div class="center">
                 <img :src="goods.smallImage">
               </div>
               <div class="right">
                 <p class="price">{{goods.name}}</p>
-                <div class="bottomContent">
-                  <p class="shopPrice">{{goods.price}}</p>
-                  <div class="shopDel">
-                    <span @click="reduceGoods(goods.id , goods.num)">+</span>
-                    <input type="number" v-model="goodNum">
-                    <span @click="addGoods">-</span>
+                 <div class="bottomContent">
+                  <p class="shopPrice"> {{goods.price}}</p>
+                  <div class="shopDeal">
+                    <span @click="reduceGoods(goods.id,goods.num)">-</span>
+                    <input type="number"
+                           disabled
+                           v-model="goods.num">
+                    <span @click="addGoods(goods.id,goods.name,
+        goods.smallImage,goods.price)">+</span>
+                  </div>
                   </div>
                 </div>
               </div>
-            </div>
           </section>
-        </div>
+            </div>
       </div>
       <!-- 猜你喜欢 -->
       <van-divider style="{ color: 'black',  padding: '0 16px' }">猜你喜欢</van-divider>
@@ -71,7 +74,7 @@ export default {
   //方法集合
   methods: {
     // 获取mutation的方法呀
-    ...mapMutations(["REDUCE_GOODS"]),
+    ...mapMutations(["REDUCE_GOODS" , "ADD_GOODS" , "SELECT_GOODS" , "DELETE_GOODS"]),
 
     // 减少商品
     reduceGoods(goodsId, goodsNum) {
@@ -85,10 +88,27 @@ export default {
           title: "温馨提示您哦",
           message: "确定删除吗",
         }).then(() => {
-          console.log(1);
+          this.REDUCE_GOODS({goodsId})
         });
       }
     },
+
+    // 添加goods
+    addGoods(goodsID, goodsName, smallImage, goodsPrice ){
+      this.ADD_GOODS({
+        goodsID, goodsName, smallImage, goodsPrice
+      })
+    },
+
+    // 删除goods
+    delChooseGoods(){
+      this.DELETE_GOODS()
+    },
+
+    // 复选框
+    setChecked(goodsId){
+      this.SELECT_GOODS({goodsId})
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -99,6 +119,12 @@ export default {
 <style lang="less" scoped>
 .cart {
   background-color: #f5f5f5;
+  padding:.3125rem;
+  .delGood{
+    float: right;
+    font-size: 0.825rem;
+    color: red
+  }
 }
 .cartHead {
   width: 100%;
@@ -136,14 +162,14 @@ export default {
           margin-left: 0.5rem;
         }
         .cartCheckBox {
-          background: url("./../../images/cart/shop-icon.png") no-repeat;
-          background-size: 2.5rem 5rem;
-          width: 1rem;
-          height: 1rem;
-        }
-        .cartCheckBox[checked] {
-          background-position: -1.2rem 0;
-        }
+              background: url("./../../images/cart/shop-icon.png") no-repeat;
+              background-size: 2.5rem 5rem;
+              width: 1rem;
+              height: 1rem;
+            }
+            .cartCheckBox[checked] {
+              background-position: -1.2rem 0;
+            }
       }
       .center {
         flex: 3;
@@ -185,6 +211,9 @@ export default {
         line-height: 1.2rem;
         text-align: center;
         float: left;
+        .shopPrice{
+
+        }
       }
       .shopDeal input {
         float: left;

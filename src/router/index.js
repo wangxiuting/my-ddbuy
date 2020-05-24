@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import homePage from "@/pages/homePage/homePage";
-
+import homePage from '../pages/homePage/homePage.vue'
 // 按需加载五个组件
 const home = () => import("../pages/home/Home.vue");
 const eat = () => import("../pages/eat/eat.vue");
@@ -18,6 +17,10 @@ import myVip from "../pages/home/components/myVip.vue";
 import flashSale from "../pages/home/components/flashSale.vue";
 import flashFood from "../pages/home/components/flashSale.vue";
 import specialZone from "../pages/home/components/specialZone.vue";
+
+// mine模块
+const personalData = () => import("../pages/mine/components/personalData.vue")
+const changeName = () => import("../pages/mine/components/changeName.vue")
 // 登录模块
 import login from "../pages/login/login.vue";
 Vue.use(Router);
@@ -26,17 +29,40 @@ export default new Router({
   routes: [
     {
       path: "/",
+      redirect: "/homePage",
+      meta:{
+        keepAlive:true
+      }
+    },
+    {
+      path: "/homePage",
       name: "homePage",
-      component: homePage,
+      component:homePage,
       children: [
         {
           path: "/homePage",
-          redirect: "/homePage/home"
+          redirect: "/homePage/home",
+          meta:{
+            keepAlive:true
+          }
         },
+        { path:"personalData",
+        name: "personalData",
+        component:personalData
+      },
+      {
+        path:"changeName",
+        name:"changeName",
+        component:changeName
+      },
+       
         {
-          path: "home",
-          name: "home",
-          component: home
+          path:"home",
+          name:"home",
+          component:home,
+          meta:{
+            keepAlive:true
+          }
         },
         {
           path: "eat",

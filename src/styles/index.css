@@ -1,0 +1,14 @@
+.van-cell__left-icon{
+    color: #45c763;
+    margin-right: 5px;
+    font-size: 1.5rem!important;
+}
+.van-cell__title{
+    text-align: left;
+}
+#mine{
+    background-color:#f3f3f3
+}
+.van-submit-bar{
+    margin-bottom: 3.1875rem;
+}

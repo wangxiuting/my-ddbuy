@@ -42,6 +42,10 @@
       </div>
       <!-- 猜你喜欢 -->
       <van-divider style="{ color: 'black',  padding: '0 16px' }">猜你喜欢</van-divider>
+      <!--  -->
+      <van-submit-bar :price="allTotlaPice" button-text="提交订单" >
+        <van-checkbox v-model="checked" @click="checkedAll">全选</van-checkbox>
+      </van-submit-bar>
     </div>
   </div>
 </template>
@@ -62,12 +66,22 @@ export default {
       isShowEmptyCart: false,
       // 商品数量
       goodNum: 1,
+      // 复选框选中
+      checked:false,
+      totalPriceArr:[],
+      allTotlaPice:0
     };
   },
   //监听属性 类似于data概念
   computed: {
     // 获取state数据
     ...mapState(["shopCart"]),
+    allPrice(){
+      this.totalPriceArr.forEach(item =>{
+        this.allTotlaPice += item
+      })
+      return parseInt(this.allTotlaPice)
+    }
   },
   //监控data中的数据变化
   watch: {},
@@ -108,6 +122,20 @@ export default {
     // 复选框
     setChecked(goodsId){
       this.SELECT_GOODS({goodsId})
+      let shopCart = this.shopCart;
+      Object.values(shopCart).forEach(good =>{
+        if(good.checked){
+          this.totalPriceArr.push(good.price)
+        }
+      })
+    },
+
+    // 全选
+    checkedAll(){
+      let shopCart = this.shopCart;
+      Object.values(shopCart).forEach(good =>{
+          good.checked = !good.checked
+      })
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

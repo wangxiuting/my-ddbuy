@@ -4,9 +4,10 @@ import {
   ADD_TO_CART,
   REDUCE_GOODS,
   SELECT_GOODS,
-  DELETE_GOODS
+  DELETE_GOODS,
+  LOGIN_OUT
 } from "./mutation-type";
-import { setLocalStore } from "../../config/globalSave";
+import { setLocalStore , removeLocalStore } from "../../config/globalSave";
 import Vue from "vue";
 import router from "../router/index";
 import { Toast } from "vant";
@@ -35,7 +36,7 @@ export default {
         name: goodsName,
         price: goodsPrice,
         smallImage: smallImage,
-        checked: true
+        checked: false
       };
       // 1.3 给shopCart产生新对象
       state.shopCart = {
@@ -120,5 +121,14 @@ export default {
     state.shopCart = {...shopCart}
     // 更新本地数据
     setLocalStore('shopCart' , state.shopCart)
+  },
+
+  // 退出登录
+  [LOGIN_OUT](state){
+      // 先置空吧
+      state.shopCart = {};
+      state.userInfo = {};
+      removeLocalStore('shopCart')
+      removeLocalStore('userInfo')
   }
 };

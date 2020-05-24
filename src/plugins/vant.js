@@ -43,3 +43,10 @@ Vue.use(CellGroup);
 /* 分割线 */
 import { Divider } from "vant";
 Vue.use(Divider);
+
+import { SubmitBar } from 'vant';
+Vue.use(SubmitBar);
+
+import { Checkbox, CheckboxGroup } from 'vant';
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);

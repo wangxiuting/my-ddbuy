@@ -95,7 +95,6 @@ export default {
 
     // 点击li标签
     eachLi(index) {
-      console.log(index);
       this.greenBorder = index;
     },
 

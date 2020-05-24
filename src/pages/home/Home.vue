@@ -67,7 +67,6 @@ export default {
   methods: {
     async _initData() {
       const res = await getHomeData();
-      console.log(res);
       this.swaiperList = res.data.list[0].icon_list;
       this.home_ad = res.data.home_ad.image_url;
       this.nav_list = res.data.list[2].icon_list;

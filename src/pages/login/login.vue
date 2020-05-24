@@ -121,6 +121,7 @@ export default {
       // 请求后台登录接口
       let ref = await phoneCaptchaLogin(this.phoneNumber, this.captcha);
       // 将信息保存到熬本地和vuex
+      console.log(ref)
       this.saveUserInfo(ref.data);
       this.$router.back();
     },

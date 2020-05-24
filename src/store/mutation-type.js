@@ -9,4 +9,6 @@ export const REDUCE_GOODS  = "REDUCE_GOODS";
 // 选择商品
 export const SELECT_GOODS  = "SELECT_GOODS";
 // 右上角删除
-export const DELETE_GOODS = "DELETE_GOODS"
+export const DELETE_GOODS = "DELETE_GOODS";
+// 退出登录
+export const LOGIN_OUT = "LOGIN_OUT"

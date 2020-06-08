@@ -51,7 +51,7 @@
       <vant-cell-group >
        <van-cell title="联系客服"  is-link icon="phone" value="客服时间 07:00 22:00"></van-cell>
        <van-cell title="意见反馈"  is-link icon="comment-circle" ></van-cell>
-       <van-cell title="语言"  is-link icon="clock" ></van-cell>
+       <van-cell title="语言"  is-link icon="clock" @click="changeLanguage"></van-cell>
       </vant-cell-group>
    </div>
 
@@ -92,6 +92,9 @@ export default {
   methods: {
     goTo(name){
       this.$router.push({ name });
+    },
+    changeLanguage(){
+      
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

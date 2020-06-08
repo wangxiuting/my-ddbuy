@@ -5,7 +5,8 @@ import {
   REDUCE_GOODS,
   SELECT_GOODS,
   DELETE_GOODS,
-  LOGIN_OUT
+  LOGIN_OUT,
+  GET_SHOP_CART
 } from "./mutation-type";
 import { setLocalStore , removeLocalStore } from "../../config/globalSave";
 import Vue from "vue";
@@ -107,6 +108,7 @@ export default {
       }
     }
   },
+ 
 
   // 右上角点击删除
   [DELETE_GOODS](state){

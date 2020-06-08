@@ -43,7 +43,7 @@
       <!-- 猜你喜欢 -->
       <van-divider style="{ color: 'black',  padding: '0 16px' }">猜你喜欢</van-divider>
       <!--  -->
-      <van-submit-bar :price="allTotlaPice" button-text="提交订单" >
+      <van-submit-bar :price="priceTotal" button-text="提交订单" >
         <van-checkbox v-model="checked" @click="checkedAll">全选</van-checkbox>
       </van-submit-bar>
     </div>
@@ -68,27 +68,35 @@ export default {
       goodNum: 1,
       // 复选框选中
       checked:false,
-      totalPriceArr:[],
-      allTotlaPice:0
+      totalArr:[],
+      allTotlaPice:0,
+      priceTotal:0
     };
   },
   //监听属性 类似于data概念
   computed: {
     // 获取state数据
-    ...mapState(["shopCart"]),
-    allPrice(){
-      this.totalPriceArr.forEach(item =>{
-        this.allTotlaPice += item
-      })
-      return parseInt(this.allTotlaPice)
-    }
+    ...mapState(["shopCart"])
   },
   //监控data中的数据变化
-  watch: {},
+  watch: {
+    totalArr:{
+      handler(old){
+        console.log(old,old.length)
+        if(old.length>0){
+          this.priceTotal = old.reduce((total , item) =>{
+            return   total +  item.price*100
+            },0)
+        }
+      },
+      immediate:true,
+      deep:true
+    }
+  },
   //方法集合
   methods: {
     // 获取mutation的方法呀
-    ...mapMutations(["REDUCE_GOODS" , "ADD_GOODS" , "SELECT_GOODS" , "DELETE_GOODS"]),
+    ...mapMutations(["REDUCE_GOODS" , "ADD_GOODS" , "SELECT_GOODS" , "DELETE_GOODS" , 'GET_SHOP_CART']),
 
     // 减少商品
     reduceGoods(goodsId, goodsNum) {
@@ -123,10 +131,12 @@ export default {
     setChecked(goodsId){
       this.SELECT_GOODS({goodsId})
       let shopCart = this.shopCart;
+      console.log(shopCart)
       Object.values(shopCart).forEach(good =>{
         if(good.checked){
-          this.totalPriceArr.push(good.price)
+          this.totalArr.push(good)
         }
+        this.totalArr = [...new Set(this.totalArr)]
       })
     },
 
@@ -142,7 +152,7 @@ export default {
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
-};
+  }
 </script>
 <style lang="less" scoped>
 .cart {
